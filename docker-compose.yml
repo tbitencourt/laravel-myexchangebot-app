@@ -1,0 +1,76 @@
+version: '3.8'
+
+# Docker Networks
+networks:
+  laravel:
+    driver: bridge
+
+services:
+  # Data persistence service layer
+  db:
+    container_name: myexchangebot-mysql
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "./.docker/mysql/my.cnf:/etc/mysql/my.cnf"
+      - "./.docker/mysql/dumps:/docker-entrypoint-initdb.d"
+    restart: always
+    tty: true
+    env_file: .env
+    ports:
+      - ${DB_PORT}:3306
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - SERVICE_NAME=db
+      - SERVICE_TAGS=${APP_ENV}
+    networks:
+      - laravel
+
+  # Application service layer
+  fpm:
+    container_name: myexchangebot-php
+    build:
+      context: .docker/php
+      dockerfile: Dockerfile
+      args:
+        XDEBUG_ENABLE: ${XDEBUG_ENABLE}
+    image: myexchangebot/php:7.4.8-fpm-alpine
+    working_dir: /var/www
+    volumes:
+      - ${LOCAL_WORKING_DIR}:${REMOTE_WORKING_DIR}
+      - "./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini"
+      - "./.docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini"
+    restart: unless-stopped
+    tty: true
+    env_file: .env
+    depends_on:
+      - db
+    environment:
+      - SERVICE_NAME=fpm
+      - SERVICE_TAGS=${APP_ENV}
+    networks:
+      - laravel
+
+  # Web service layer
+  webserver:
+    container_name: myexchangebot-nginx
+    image: nginx:1.18-alpine
+    volumes:
+      - ${LOCAL_WORKING_DIR}:${REMOTE_WORKING_DIR}
+      - "./.docker/nginx/conf.d/:/etc/nginx/conf.d/"
+    restart: unless-stopped
+    tty: true
+    env_file: .env
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - fpm
+    environment:
+      - SERVICE_NAME=webserver
+      - SERVICE_TAGS=${APP_ENV}
+    networks:
+      - laravel
