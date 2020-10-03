@@ -65,7 +65,7 @@ class UserAdminSeeder extends Seeder
         DB::table('teams')->insert([
             'user_id' => $userAdminId,
             'name' => self::ADMIN_TEAM_NAME,
-            'personal_team' => false,
+            'personal_team' => true,
             'created_at' => $this->insertDate,
             'updated_at' => $this->insertDate,
         ]);
