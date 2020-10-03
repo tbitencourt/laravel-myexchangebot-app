@@ -12,7 +12,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Install xdebug
 ARG XDEBUG_ENABLE
 RUN echo XDEBUG_ENABLE = $XDEBUG_ENABLE; \
-if [ $XDEBUG_ENABLE = "true" ] | [ $XDEBUG_ENABLE = "1" ]; then \
+if [ $XDEBUG_ENABLE = "true" ] || [ $XDEBUG_ENABLE = "1" ]; then \
    pecl install xdebug; \
    docker-php-ext-enable xdebug; \
 fi;
