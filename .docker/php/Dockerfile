@@ -1,9 +1,8 @@
-FROM php:7.4.8-fpm-alpine
+FROM php:7.4.11-fpm-alpine
 
+# Install dependencies
 RUN apk upgrade --update
-
-# Lib dependencies
-RUN apk add --no-cache ca-certificates git jpeg-dev libpng-dev freetype-dev libxslt-dev icu-dev libzip-dev $PHPIZE_DEPS
+RUN apk add --no-cache shadow ca-certificates git jpeg-dev libpng-dev freetype-dev libxslt-dev icu-dev libzip-dev $PHPIZE_DEPS
 
 # Install extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -25,6 +24,13 @@ RUN composer global require hirak/prestissimo
 
 # Memory Limit
 RUN echo "memory_limit=2G" >> /usr/local/etc/php/conf.d/from-docker-configuration.ini
+
+# Tell docker that all future commands should run as the appuser user
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data;
+USER www-data
+
+# Set working directory
+WORKDIR /var/www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
