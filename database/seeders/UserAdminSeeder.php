@@ -17,6 +17,7 @@ class UserAdminSeeder extends Seeder
 {
     const ADMIN_NAME = "Administrator";
     const ADMIN_EMAIL = "admin@myexchangebot.com";
+    const ADMIN_PASSWORD = "admin123";
     const ADMIN_TEAM_NAME = "System Administrators";
 
     /**
@@ -46,7 +47,7 @@ class UserAdminSeeder extends Seeder
             'name' => self::ADMIN_NAME,
             'email' => self::ADMIN_EMAIL,
             'email_verified_at' => $this->insertDate,
-            'password' => Hash::make('password'),
+            'password' => Hash::make(self::ADMIN_PASSWORD),
             'created_at' => $this->insertDate,
             'updated_at' => $this->insertDate,
         ]);
