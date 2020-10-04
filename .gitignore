@@ -13,4 +13,5 @@ npm-debug.log
 yarn-error.log
 ## PhpStorm Config Files
 /.idea/*
-
+## Mix Copied Imags
+/public/img
