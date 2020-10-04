@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -11,10 +14,11 @@ use Illuminate\Http\RedirectResponse;
 class HomeController extends Controller
 {
     /**
-     * @return RedirectResponse
+     * @return Application|Factory|View|RedirectResponse
      */
     public function index()
     {
-        return redirect('/dashboard');
+//        return redirect('/dashboard');
+        return view('home');
     }
 }

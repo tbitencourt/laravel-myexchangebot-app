@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ChatbotMessageResource;
+use App\Http\Resources\ChatbotReplyResource;
 use App\Models\ChatbotHint;
 use App\Models\ChatbotMessage;
 use Illuminate\Contracts\Foundation\Application;
@@ -46,23 +47,14 @@ class ChatbotController extends Controller
      */
     public function processMessage(Request $request)
     {
-        $question = $request->get('txt', '');
-        ChatbotMessage::query()->create([
-            'message' => $question,
-            'added_on' => now(),
-            'type_enum' => 2
-        ]);
+        $question = $request->get('question', '');
         /** @var ChatbotHint $hint */
-        $hint = ChatbotHint::query()->where('question', 'like', "%$question%")->first(['reply']);
-        if (empty($question) || empty($hint)) {
-            $hint = (object)['reply' => "Sorry not be able to understand you"];
-        }
-        ChatbotMessage::query()->create([
-            'message' => $hint->reply,
-            'added_on' => now(),
-            'type_enum' => 1
-        ]);
+        $hint = ChatbotHint::query()
+            ->firstOrNew(
+                [['question', 'like', "%$question%"]],
+                ['reply' => "Sorry not be able to understand you"]
+            );
 
-        return $hint->reply;
+        return new ChatbotReplyResource($hint);
     }
 }
