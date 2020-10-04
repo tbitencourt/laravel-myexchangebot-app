@@ -137,33 +137,30 @@
                             My ExchangeBot is a chatbot where you can make financial transactions in your currency!
                             Start now!
                         </div>
-                        <!--start code-->
                         <div class="card">
                             <div class="mt-3 card-body messages-box">
                                 <ul class="list-unstyled messages-list">
                                     <li class="messages-me clearfix start_chat">
                                         Please type something to start!
                                     </li>
-                                    {{--                                            <li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:35 AM</span></small> </div><p class="messages-p">Hi</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:35 AM</span></small> </div><p class="messages-p">Hello, how are you.</p></div></li><li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:35 AM</span></small> </div><p class="messages-p">Fine</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:35 AM</span></small> </div><p class="messages-p">Sorry not be able to understand you</p></div></li><li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:36 AM</span></small> </div><p class="messages-p">whats your name</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:36 AM</span></small> </div><p class="messages-p">My name is MyExchangeBot</p></div></li><li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:36 AM</span></small> </div><p class="messages-p">where are you from?</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:36 AM</span></small> </div><p class="messages-p">Sorry not be able to understand you</p></div></li><li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:36 AM</span></small> </div><p class="messages-p">where are you from?</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:36 AM</span></small> </div><p class="messages-p">Sorry not be able to understand you</p></div></li><li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:36 AM</span></small> </div><p class="messages-p">where are you from</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:36 AM</span></small> </div><p class="messages-p">Sorry not be able to understand you</p></div></li><li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:37 AM</span></small> </div><p class="messages-p">where are your from?</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:37 AM</span></small> </div><p class="messages-p">Sorry not be able to understand you</p></div></li><li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:37 AM</span></small> </div><p class="messages-p">where are your from</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:37 AM</span></small> </div><p class="messages-p">I m from Brazil</p></div></li><li class="messages-me clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/user_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Me</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:37 AM</span></small> </div><p class="messages-p">Bye</p></div></li><li class="messages-you clearfix"><span class="message-img"><img src="http://myexchangebot.local/img/bot_avatar.png" class="avatar-sm rounded-circle"></span><div class="message-body clearfix"><div class="message-header"><strong class="messages-title">Chatbot</strong> <small class="time-messages text-muted"><span class="fas fa-time"></span> <span class="minutes">01:37 AM</span></small> </div><p class="messages-p">Sad to see you are going. Have a nice day</p></div></li>--}}
                                 </ul>
                             </div>
 
                             <div class="card-header">
                                 <div class="input-group">
                                     <input id="input-me" type="text" name="messages"
-                                           class="form-input rounded-md shadow-sm"
-                                           placeholder="Type your message here..."/>
+                                           class="form-input rounded-md shadow-sm" style="width:80%"
+                                           placeholder="Type your message here... If you need some help, just type 'Help'."/>
                                     <span class="input-group-append">
-                                                <button
-                                                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150"
-                                                    id="myBtn" onclick="sendMessage()">
-                                                    Send
-                                                </button>
-                                            </span>
+                                        <button
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150"
+                                            id="myBtn" onclick="sendUserMessage()">
+                                            Send
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <!--end code-->
                         <div class="mt-3"></div>
                     </div>
                 </div>
@@ -179,18 +176,15 @@
             if (e.keyCode === 13)
                 $('#myBtn').click();
         });
+        sendBotMessage("✋ Hi! My name is Boty. I'm your personal exchange chatbot. If you need to something just ask me! :)");
     });
 
-    function sendMessage() {
-        const messageListObj = $('.messages-list');
-        const messagesBoxObj = $('.messages-box');
+    function sendUserMessage() {
         const inputMeObj = $('#input-me');
-        const startChatObj = $('.start_chat');
         const question = inputMeObj.val();
         if (question) {
-            startChatObj.hide();
             const messageUser = getMessageUserTag(question);
-            messageListObj.append(messageUser);
+            addMessageToList(messageUser);
             inputMeObj.val("");
             $.ajax({
                 url: "/api/process",
@@ -199,14 +193,29 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    const messageBot = getMessageBotTag(result.data.reply)
-                    messageListObj.append(messageBot);
-                    messagesBoxObj.scrollTop(messagesBoxObj[0].scrollHeight);
+                    sendBotMessage(result.data.reply);
                 }
             });
         }
     }
 
+    function sendBotMessage(message) {
+        const messageBot = getMessageBotTag(message);
+        addMessageToList(messageBot);
+    }
+
+    function addMessageToList(messageTag) {
+        const startChatObj = $('.start_chat');
+        const messageListObj = $('.messages-list');
+        const messagesBoxObj = $('.messages-box');
+        if (startChatObj.is(":visible")) {
+            startChatObj.hide();
+        }
+        messageListObj.append(messageTag);
+        messagesBoxObj.scrollTop(messagesBoxObj[0].scrollHeight);
+
+
+    }
 
     function getMessageUserTag(message) {
         return getMessageTag(message, 'messages-me', 'img/user_avatar.png', 'Me');
