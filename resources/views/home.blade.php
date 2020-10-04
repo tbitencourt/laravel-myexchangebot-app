@@ -18,43 +18,9 @@
 
     <!-- Livewire Styles -->
     <style>
-        [wire\:loading], [wire\:loading\.delay] {
-            display: none;
-        }
-
-        [wire\:offline] {
-            display: none;
-        }
-
-        [wire\:dirty]:not(textarea):not(input):not(select) {
-            display: none;
-        }
-
-        input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {
-            animation-duration: 50000s;
-            animation-name: livewireautofill;
-        }
-
-        @keyframes livewireautofill {
-            from {
-            }
-        }
-
-
-        .unread {
-            cursor: pointer;
-            background-color: #f4f4f4;
-        }
-
         .messages-box {
-            max-height: 26rem;
+            max-height: 22rem;
             overflow: auto;
-        }
-
-        .online-circle {
-            border-radius: 5rem;
-            width: 5rem;
-            height: 5rem;
         }
 
         .messages-title {
@@ -71,10 +37,6 @@
             text-align: right;
             width: 100%;
             margin-bottom: 0.5rem;
-        }
-
-        .text-editor {
-            min-height: 18rem;
         }
 
         .messages-list li.messages-you .messages-title {
@@ -116,7 +78,6 @@
 <div class="min-h-screen bg-gray-100">
     <!-- Page Heading -->
     <header class="bg-white shadow">
-        <!-- Logo -->
         <div class="max-w-10xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 My ExchangeBot
@@ -130,7 +91,7 @@
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="sm:px-15 bg-white border-b border-gray-200">
                         <div class="mt-3 text-2xl">
-                            Welcome to your personal exchange bot application!
+                            Welcome to your personal exchange chatbot application!
                         </div>
 
                         <div class="mt-3 text-gray-500">
@@ -149,7 +110,7 @@
                             <div class="card-header">
                                 <div class="input-group">
                                     <input id="input-me" type="text" name="messages"
-                                           class="form-input rounded-md shadow-sm" style="width:80%"
+                                           class="form-input rounded-md shadow-sm" style="width:44em;"
                                            placeholder="Type your message here... If you need some help, just type 'Help'."/>
                                     <span class="input-group-append">
                                         <button
@@ -176,7 +137,7 @@
             if (e.keyCode === 13)
                 $('#myBtn').click();
         });
-        sendBotMessage("✋ Hi! My name is Boty. I'm your personal exchange chatbot. If you need to something just ask me! :)");
+        sendBotMessage("✋ Hi! My name is Boty. I'm your personal exchange chatbot. If you need something just ask me! :)");
     });
 
     function sendUserMessage() {
@@ -194,6 +155,7 @@
                 dataType: "json",
                 success: function (result) {
                     sendBotMessage(result.data.reply);
+                    inputMeObj.focus();
                 }
             });
         }
