@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ChatbotMessageResource;
-use App\Http\Resources\ChatbotReplyResource;
-use App\Models\ChatbotHint;
-use App\Models\ChatbotMessage;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use App\Contracts\ChatbotReplyResource as ChatbotReplyResourceContract;
+use App\Contracts\ChatbotReplyResponse as ChatbotReplyResponseContract;
+use App\Contracts\ProcessChatbotMessage as ProcessChatbotMessageContract;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Resources\Json\ResourceCollection;
-use Tightenco\Collect\Support\Collection;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ChatbotController
@@ -21,40 +16,16 @@ use Tightenco\Collect\Support\Collection;
 class ChatbotController extends Controller
 {
     /**
-     * @return Application|Factory|View
-     */
-    public function index()
-    {
-        $chatbotMessages = ChatbotMessage::all();
-        return view('chatbot', compact('chatbotMessages'));
-    }
-
-    /**
-     * @return AnonymousResourceCollection
-     */
-    public function showHistory(): ResourceCollection
-    {
-//        $chatbotMessages = Collect([]);
-//        if (auth()->check()) {
-        $chatbotMessages = ChatbotMessage::all();
-//        }
-        return ChatbotMessageResource::collection($chatbotMessages);
-    }
-
-    /**
      * @param Request $request
-     * @return AnonymousResourceCollection|\Illuminate\Support\Collection|string|Collection
+     * @param ProcessChatbotMessageContract $process
+     * @param ChatbotReplyResponseContract $response
+     * @return Response
+     * @throws Exception
      */
-    public function processMessage(Request $request)
+    public function processMessage(Request $request, ProcessChatbotMessageContract $process, ChatbotReplyResponseContract $response): Response
     {
-        $question = $request->get('question', '');
-        /** @var ChatbotHint $hint */
-        $hint = ChatbotHint::query()
-            ->firstOrNew(
-                [['question', 'like', "%$question%"]],
-                ['reply' => "Sorry not be able to understand you"]
-            );
-
-        return new ChatbotReplyResource($hint);
+        /** @var ChatbotReplyResourceContract $resource */
+        $resource = $process->process($request);
+        return $response->setResource($resource)->toResponse($request);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BotManController;
-use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\ChatbotPageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +28,8 @@ Route::get('/welcome', function() {
 });
 
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
-Route::get( '/chatbot', [ChatbotController::class, 'index']);
+Route::get( '/chatbot', [ChatbotPageController::class, 'index']);
+
+Route::get('/bot', function() {
+    return view('bot');
+});

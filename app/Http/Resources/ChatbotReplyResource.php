@@ -2,29 +2,34 @@
 
 namespace App\Http\Resources;
 
+use App\Contracts\ChatbotReplyResource as ChatbotReplyResourceContract;
 use App\Models\ChatbotHint;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
 
 /**
  * Class ChatbotReplyResource
  * @package App\Http\Resources
  */
-class ChatbotReplyResource extends JsonResource
+class ChatbotReplyResource extends JsonResource implements ChatbotReplyResourceContract
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param Request $request
-     * @return array
-     * @noinspection PhpMissingParamTypeInspection
+     * @inheritDoc
      */
     public function toArray($request)
     {
-        /** @var ChatbotHint $chatbotHint */
-        $chatbotHint = $this->resource;
+        /** @var Collection $result */
+        $result = $this->resource;
+        if (empty($result->get('command'))) {
+            /** @var ChatbotHint $chatbotHint */
+            $chatbotHint = $result->get('response');
+            return [
+                'reply' => $chatbotHint->reply,
+            ];
+        }
+
         return [
-            'reply' => $chatbotHint->reply,
+            'reply' => $result->get('response'),
         ];
     }
 }

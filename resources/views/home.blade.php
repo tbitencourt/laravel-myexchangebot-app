@@ -109,7 +109,7 @@
 
                             <div class="card-header">
                                 <div class="input-group">
-                                    <input id="input-me" type="text" name="messages"
+                                    <input id="input-me" type="text" name="messages" maxlength="100"
                                            class="form-input rounded-md shadow-sm" style="width:44em;"
                                            placeholder="Type your message here... If you need some help, just type 'Help'."/>
                                     <span class="input-group-append">

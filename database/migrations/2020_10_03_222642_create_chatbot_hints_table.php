@@ -16,7 +16,7 @@ class CreateChatbotHintsTable extends Migration
         Schema::create('chatbot_hints', function (Blueprint $table) {
             $table->id();
             $table->string('question', 100);
-            $table->string('reply', 100);
+            $table->string('reply', 200);
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@
         "botman/driver-web": "^1.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.1",
         "laravel/framework": "^8.0",
         "laravel/jetstream": "^1.3",
         "laravel/sanctum": "^2.6",
