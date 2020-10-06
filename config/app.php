@@ -231,4 +231,24 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Hiding Environment Variables From Debug Pages
+    |--------------------------------------------------------------------------
+    |
+    | When an exception is uncaught and the APP_DEBUG environment variable
+    | is true, the debug page will show all environment variables and their
+    | contents. In some cases you may want to obscure certain variables.
+    |
+    */
+
+    'debug_hide' => [
+        '_ENV' => [
+            'DATAFIXER_URL',
+            'DATAFIXER_KEY',
+            'AMDOREN_URL',
+            'AMDOREN_KEY',
+        ],
+    ],
+
 ];

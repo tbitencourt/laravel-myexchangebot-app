@@ -109,6 +109,8 @@
 
                             <div class="card-header">
                                 <div class="input-group">
+                                    <input id="action" type="hidden" value=""/>
+                                    <input id="hash" type="hidden" value=""/>
                                     <input id="input-me" type="text" name="messages" maxlength="100"
                                            class="form-input rounded-md shadow-sm" style="width:44em;"
                                            placeholder="Type your message here... If you need some help, just type 'Help'."/>
@@ -133,6 +135,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        localStorage.clear();
         $('#input-me').keypress(function (e) {
             if (e.keyCode === 13)
                 $('#myBtn').click();
@@ -141,19 +144,60 @@
     });
 
     function sendUserMessage() {
+        const actionObj = $("#action");
+        const action = actionObj.val();
+        const hashObj = $("#hash");
+        const hash = hashObj.val();
         const inputMeObj = $('#input-me');
         const question = inputMeObj.val();
         if (question) {
-            const messageUser = getMessageUserTag(question);
-            addMessageToList(messageUser);
+            if (inputMeObj.get(0).type !== "password") {
+                const messageUser = getMessageUserTag(question);
+                addMessageToList(messageUser);
+            }
+            actionObj.val("");
+            hashObj.val("");
             inputMeObj.val("");
-            $.ajax({
+            inputMeObj.get(0).type = "text";
+            const request = {
                 url: "/api/process",
                 type: "POST",
-                data: JSON.stringify({question: question}),
+                headers: [],
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
+                data: JSON.stringify({
+                    action: action,
+                    hash: hash,
+                    question: question,
+                }),
+                token: localStorage.getItem('chatbot_token')
+            }
+            if (typeof request.token !== "undefined" && request.token !== null) {
+                request.url = "/api/user/process"
+            }
+            $.ajax({
+                url: request.url,
+                type: request.type,
+                headers: request.headers,
+                data: request.data,
+                contentType: request.contentType,
+                dataType: request.dataType,
                 success: function (result) {
+                    if (typeof result.data.login !== "undefined" && result.data.login !== null) {
+                        localStorage.setItem('username', result.data.login.username);
+                        localStorage.setItem('email', result.data.login.email);
+                        localStorage.setItem('chatbot_token', result.data.login.token);
+                        // the following part makes sure that all the requests made later with jqXHR will automatically have this header.
+                        $(document).ajaxSend(function (event, jqxhr, settings) {
+                            jqxhr.setRequestHeader('Authorization', "Bearer " + result.data.login.token);
+                        });
+                    }
+                    if (typeof result.data.actions !== "undefined" && result.data.actions !== null) {
+                        const {action, hash, input_type} = result.data.actions;
+                        inputMeObj.get(0).type = input_type;
+                        actionObj.val(action);
+                        hashObj.val(hash);
+                    }
                     sendBotMessage(result.data.reply);
                     inputMeObj.focus();
                 }
@@ -175,12 +219,14 @@
         }
         messageListObj.append(messageTag);
         messagesBoxObj.scrollTop(messagesBoxObj[0].scrollHeight);
-
-
     }
 
     function getMessageUserTag(message) {
-        return getMessageTag(message, 'messages-me', 'img/user_avatar.png', 'Me');
+        let username = localStorage.getItem('username');
+        if (typeof username === "undefined" || username === null) {
+            username = "Me";
+        }
+        return getMessageTag(message, 'messages-me', 'img/user_avatar.png', username);
     }
 
     function getMessageBotTag(message) {

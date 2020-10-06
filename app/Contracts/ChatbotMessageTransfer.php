@@ -8,8 +8,31 @@ namespace App\Contracts;
  */
 interface ChatbotMessageTransfer
 {
+    const KEY_ACTION = "action";
+    const KEY_HASH = "hash";
     const KEY_MESSAGE = "message";
-    const KEY_COMMANDS = "commands";
+
+    /**
+     * @return string
+     */
+    public function getAction(): string;
+
+    /**
+     * @param string $action
+     * @return $this
+     */
+    public function setAction(string $action): self;
+
+    /**
+     * @return string
+     */
+    public function getHash(): string;
+
+    /**
+     * @param string $hash
+     * @return $this
+     */
+    public function setHash(string $hash): self;
 
     /**
      * @return string

@@ -2,8 +2,8 @@
 
 namespace App\Contracts;
 
-use App\Actions\Chatbot\AbstractChatbotCommand as ChatbotCommand;
 use App\Models\ChatbotHint;
+use Illuminate\Support\Collection;
 
 /**
  * Class ChatbotService
@@ -13,14 +13,14 @@ interface ChatbotService
 {
     /**
      * @param ChatbotMessageTransfer $transfer
-     * @return null|ChatbotCommand
+     * @return Collection
      */
-    public function extractCommand(ChatbotMessageTransfer $transfer);
+    public function extractActions(ChatbotMessageTransfer $transfer): Collection;
 
     /**
-     * @return string[]
+     * @return array
      */
-    public function getMessageCommands(): array;
+    public function getChatbotActionsConfig(): array;
 
     /**
      * @param ChatbotMessageTransfer $transfer

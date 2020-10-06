@@ -1,8 +1,9 @@
 <?php
 
 
-namespace App\Actions\Chatbot;
+namespace App\Actions;
 
+use App\Actions\Chatbot\AbstractChatbotAction;
 use App\Contracts\ChatbotMessageTransfer;
 use App\Contracts\ChatbotMessageTransferBuilder;
 use App\Contracts\ChatbotService as ChatbotServiceContract;
@@ -59,15 +60,25 @@ class ProcessChatbotMessage implements ProcessChatbotMessageContract
      */
     protected function doProcess(ChatbotMessageTransfer $transfer)
     {
-        $result = new Collection();
-        $command = $this->service->extractCommand($transfer);
-        $result->put('command', $command);
-        if (empty($command)) {
-            $result->put('response', $this->service->replyMessage($transfer));
-            return $result;
+        $response = collect();
+        $chatbotActions = $this->service->extractActions($transfer);
+        $response->put('actions', $chatbotActions);
+        if ($chatbotActions->isEmpty()) {
+            $response->put('response', $this->service->replyMessage($transfer));
+            return $response;
         }
-        $result->put('response', $command($transfer));
-        return $result;
+        $result = collect();
+        foreach ($chatbotActions as $key => $chatbotActionClass) {
+            /** @var AbstractChatbotAction $action */
+            $action = app($chatbotActionClass);
+            $actionResult = $action($transfer);
+            $result->put($key, $actionResult);
+            if ($actionResult->isEmpty() || $actionResult->get('success', false) == false) {
+                break;
+            }
+        }
+        $response->put('response', $result);
+        return $response;
     }
 
     /**

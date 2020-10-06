@@ -3,11 +3,10 @@
 
 namespace App\Services;
 
-use App\Actions\Chatbot\AbstractChatbotCommand as ChatbotCommand;
 use App\Contracts\ChatbotHintRepository as ChatbotHintRepositoryContract;
 use App\Contracts\ChatbotMessageTransfer as ChatbotMessageTransferContract;
 use App\Contracts\ChatbotService as ChatbotServiceContract;
-use App\Models\ChatbotHint;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
@@ -31,34 +30,40 @@ class ChatbotService implements ChatbotServiceContract
     }
 
     /**
-     * @param ChatbotMessageTransferContract $transfer
-     * @return null|ChatbotCommand
+     * @inheritDoc
      */
-    public function extractCommand(ChatbotMessageTransferContract $transfer)
+    public function extractActions(ChatbotMessageTransferContract $transfer): Collection
     {
+        $action = $transfer->getAction();
         $message = $transfer->getMessage();
-        foreach ($this->getMessageCommands() as $key => $command) {
-            if (Str::startsWith($message, $key)) {
-                return app($command);
+        if ((!empty($action) && Str::startsWith($action, '@'))
+            || Str::startsWith($message, '@')) {
+            foreach ($this->getChatbotActionsConfig() as $key => $actionClass) {
+                if ($key === $action) {
+                    return collect((array)$actionClass);
+                }
+                if (Str::startsWith($message, $key)) {
+                    return collect((array)$actionClass);
+                }
             }
         }
-        return null;
+        return collect();
     }
 
     /**
-     * @return string[]
+     * @inheritDoc
      */
-    public function getMessageCommands(): array
+    public function getChatbotActionsConfig(): array
     {
-        return config('chatbot.commands');
+        return config('chatbot.actions');
     }
 
     /**
-     * @param ChatbotMessageTransferContract $transfer
-     * @return ChatbotHint
+     * @inheritDoc
      */
     public function replyMessage(ChatbotMessageTransferContract $transfer)
     {
         return $this->repository->replayMessage($transfer->getMessage());
     }
+
 }

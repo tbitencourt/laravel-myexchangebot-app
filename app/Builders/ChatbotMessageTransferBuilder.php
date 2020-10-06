@@ -35,6 +35,8 @@ class ChatbotMessageTransferBuilder implements ChatbotMessageTransferBuilderCont
     public function build(Request $request): ChatbotMessageTransferContract
     {
         return $this->getTransfer()
+            ->setAction(Str::lower($request->get('action')))
+            ->setHash(Str::lower($request->get('hash')))
             ->setMessage(Str::lower($request->get('question')));
     }
 

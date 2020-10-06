@@ -2,11 +2,11 @@ FROM php:7.4.11-fpm-alpine
 
 # Install dependencies
 RUN apk upgrade --update
-RUN apk add --no-cache shadow ca-certificates git jpeg-dev libpng-dev freetype-dev libxslt-dev icu-dev libzip-dev $PHPIZE_DEPS
+RUN apk add --no-cache openssh shadow ca-certificates git jpeg-dev libpng-dev freetype-dev libxslt-dev icu-dev libzip-dev $PHPIZE_DEPS
 
 # Install extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd bcmath xsl intl pdo pdo_mysql soap zip opcache
+    && docker-php-ext-install gd bcmath xsl intl pdo pdo_mysql soap zip opcache json
 
 # Install xdebug
 ARG XDEBUG_ENABLE

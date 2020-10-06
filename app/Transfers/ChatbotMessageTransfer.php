@@ -11,7 +11,39 @@ use App\Contracts\ChatbotMessageTransfer as ChatbotMessageTransferContract;
 class ChatbotMessageTransfer extends AbstractTransfer implements ChatbotMessageTransferContract
 {
     /**
-     * @return string
+     * @inheritDoc
+     */
+    public function getAction(): string
+    {
+        return $this->getData(static::KEY_ACTION);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAction(string $action): ChatbotMessageTransferContract
+    {
+        return $this->setData(static::KEY_ACTION, $action);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHash(): string
+    {
+        return $this->getData(static::KEY_HASH);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setHash(string $hash): ChatbotMessageTransferContract
+    {
+        return $this->setData(static::KEY_HASH, $hash);
+    }
+
+    /**
+     * @inheritDoc
      */
     public function getMessage(): string
     {
@@ -19,8 +51,7 @@ class ChatbotMessageTransfer extends AbstractTransfer implements ChatbotMessageT
     }
 
     /**
-     * @param string $message
-     * @return ChatbotMessageTransferContract
+     * @inheritDoc
      */
     public function setMessage(string $message): ChatbotMessageTransferContract
     {

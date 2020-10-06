@@ -1,6 +1,8 @@
 <?php
 
-use App\Actions\Chatbot\ExchangeCurrency;
+use App\Actions\Chatbot\ExchangeCurrencyChatbotAction;
+use App\Actions\Chatbot\LoginUserChatbotAction;
+use App\Actions\Chatbot\ValidateCurrencyCodeChatbotAction;
 
 return [
 
@@ -13,7 +15,13 @@ return [
     |
     */
 
-    'commands' => [
-        '@exchange' => ExchangeCurrency::class,
+    'actions' => [
+        '@exchange' => [
+            ValidateCurrencyCodeChatbotAction::class,
+            ExchangeCurrencyChatbotAction::class,
+        ],
+        '@login' => [
+            LoginUserChatbotAction::class
+        ],
     ],
 ];

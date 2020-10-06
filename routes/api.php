@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('history', [ChatbotController::class, 'showHistory']);
 Route::post('process', [ChatbotController::class, 'processMessage']);
+Route::middleware('auth:sanctum')->post('user/process', [ChatbotController::class, 'processMessage']);

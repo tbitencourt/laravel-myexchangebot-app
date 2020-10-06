@@ -32,7 +32,7 @@ class ChatbotHintRepository implements ChatbotHintRepositoryContract
     public function replayMessage(string $message): ChatbotHint
     {
         /** @var ChatbotHint $hint */
-        $hint = $this->model->query()
+        $hint = $this->model->newQuery()
             ->firstOrNew(
                 [['question', 'like', "%$message%"]],
                 ['reply' => __(static::DEFAULT_HINT_REPLY)]
