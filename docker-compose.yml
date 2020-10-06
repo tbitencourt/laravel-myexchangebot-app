@@ -37,7 +37,7 @@ services:
       dockerfile: Dockerfile
       args:
         XDEBUG_ENABLE: ${XDEBUG_ENABLE}
-    image: myexchangebot/php:7.4.8-fpm-alpine
+    image: myexchangebot/php:7.4.11-fpm-alpine
     working_dir: /var/www
     volumes:
       - ${LOCAL_WORKING_DIR}:${REMOTE_WORKING_DIR}

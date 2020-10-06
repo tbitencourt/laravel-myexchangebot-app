@@ -1,8 +1,13 @@
 FROM php:7.4.11-fpm-alpine
 
+LABEL php_version=7.4.11
+
 # Install dependencies
 RUN apk upgrade --update
-RUN apk add --no-cache openssh shadow ca-certificates git jpeg-dev libpng-dev freetype-dev libxslt-dev icu-dev libzip-dev $PHPIZE_DEPS
+RUN apk add --no-cache openssh-client \
+    shadow ca-certificates git jpeg-dev \
+    libpng-dev freetype-dev libxslt-dev \
+    icu-dev libzip-dev $PHPIZE_DEPS
 
 # Install extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
