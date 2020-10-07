@@ -35,7 +35,7 @@ services:
       context: .docker/php
       dockerfile: Dockerfile
       args:
-        XDEBUG_ENABLE: true
+        XDEBUG_ENABLE: "true"
     image: myexchangebot/php:7.4.11-fpm-alpine
     working_dir: /var/www
     volumes:

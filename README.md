@@ -32,7 +32,7 @@ Step-by-step to configure the project:
 
 1 . Clone "laravel-myexchangebot-app" project from GitHub:
 
-`git clone -b desafio https://tbitencourt@bitbucket.org/tbitencourt/assessment-backend.git`
+`git clone git@github.com:tbitencourt/laravel-myexchangebot-app.git`
 
 2 . Start docker containers:
 
@@ -48,11 +48,11 @@ Step-by-step to configure the project:
 
 3 . Create `.env` file from` .env.example`:
 
-`php -r "file_exists('.env') || copy('.env.example', '.env');`
+`php -r "file_exists('.env') || copy('.env.example', '.env');"`
 
 6 . Generate Application key:
 
-`php artisan key:generate --ansi`
+`php artisan key:generate`
 
 7 . Run migrations and seeders to create the database:
 
@@ -60,9 +60,7 @@ Step-by-step to configure the project:
 
 8 . Configure directory permissions:
 
-`chmod -R 775 storage`
-
-`chmod -R 775 bootstrap/cache`
+`chmod -R 775 storage && chmod -R 775 bootstrap/cache`
 
 9 . Exit container:
 
