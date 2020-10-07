@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\BotManController;
-use App\Http\Controllers\ChatbotPageController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,17 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard');
+//Route::middleware(['auth:sanctum', 'verified'])
+//    ->get('/dashboard', [DashboardController::class, 'index'])
+//    ->name('dashboard');
 
-Route::get('/welcome', function() {
-    return view('welcome');
-});
+//Route::get('/welcome', function() {
+//    return view('welcome');
+//});
 
-Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
-Route::get( '/chatbot', [ChatbotPageController::class, 'index']);
+//Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
+//Route::get( '/chatbot', [ChatbotPageController::class, 'index']);
 
-Route::get('/bot', function() {
-    return view('bot');
-});
+//Route::get('/bot', function() {
+//    return view('bot');
+//});
