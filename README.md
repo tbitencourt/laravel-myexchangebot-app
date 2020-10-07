@@ -1,61 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# PHP Challenge - My ExchangeBot - Thales Bitencourt 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+This project is a chatbot application. It is able to receive specific orders from the user, 
+and reply accordingly, including a user log-in and currency exchange between two currencies of any amount of money.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Conteúdo
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Installation](#installation)
+    * [Environment](#environment)
+    * [Project](#project)
+- [Features](#features)
+- [Conclusion](#conclusion)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation
 
-## Learning Laravel
+### Environment
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+It is a Laravel (version 8.0) application using an environment in Docker (version 19.03.13) and Docker Compose (version 1.26.0) with the following services:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* PHP 7.4.11
+* Nginx 1.18
+* MySQL 5.7
+* Composer 1.9.1
 
-## Laravel Sponsors
+- Note 1: A "npm" (version 10.19.1) was used to generate webpack with front-end assets, but it is outside the docker.
+- Note 2: Despite using the docker, the project can be run on any Ubuntu with the above software installed and configured correctly (I have not tested it on Windows, but I believe it also works).
+ 
+### Project
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Step-by-step to configure the project:
 
-### Premium Partners
+1 . Clone "laravel-myexchangebot-app" project from GitHub:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+`git clone -b desafio https://tbitencourt@bitbucket.org/tbitencourt/assessment-backend.git`
 
-## Contributing
+2 . Start docker containers:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+`docker-compose up -d`
 
-## Code of Conduct
+3 . Open shell from FPM container (next steps must run inside FPM container):
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`docker-compose exec fpm sh`
 
-## Security Vulnerabilities
+4 . Install backend dependencies via composer:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+`composer install -vvv`
 
-## License
+3 . Create `.env` file from` .env.example`:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+`php -r "file_exists('.env') || copy('.env.example', '.env');`
+
+6 . Generate Application key:
+
+`php artisan key:generate --ansi`
+
+7 . Run migrations and seeders to create the database:
+
+`php artisan migrate --seed`
+
+8 . Configure directory permissions:
+
+`chmod -R 775 storage`
+
+`chmod -R 775 bootstrap/cache`
+
+9 . Exit container:
+
+`exit`
+
+10 . Install frontend dependencies (Laravel Mix) via npm:
+
+`npm install && npm run dev`
+
+11 . Set virtual host:
+
+`echo "127.0.0.1 myexchangebot.local" | sudo tee -a /etc/hosts`
+
+12 . Now just open the site: http://myexchangebot.local
+
+## Features
+
+## Conclusion
+
+Again, thanks for opportunity and any doubt just ask me! :)
+
+Contacts:
+
+* [LinkedIn](https://www.linkedin.com/in/thales-bitencourt-969b7b14)
+
+* [Github](https://github.com/tbitencourt)
+
+* [E-mail](mailto:thalesbitencourt@gmail.com)
+
+Thales

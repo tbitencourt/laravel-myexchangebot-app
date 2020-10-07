@@ -16,16 +16,15 @@ services:
       - "./.docker/mysql/dumps:/docker-entrypoint-initdb.d"
     restart: always
     tty: true
-    env_file: .env
     ports:
-      - ${DB_PORT}:3306
+      - 3306:3306
     environment:
-      - MYSQL_DATABASE=${DB_DATABASE}
-      - MYSQL_USER=${DB_USERNAME}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=myexchangebot
+      - MYSQL_USER=meb_app_dev
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
       - SERVICE_NAME=db
-      - SERVICE_TAGS=${APP_ENV}
+      - SERVICE_TAGS=local
     networks:
       - laravel
 
@@ -36,21 +35,20 @@ services:
       context: .docker/php
       dockerfile: Dockerfile
       args:
-        XDEBUG_ENABLE: ${XDEBUG_ENABLE}
+        XDEBUG_ENABLE: true
     image: myexchangebot/php:7.4.11-fpm-alpine
     working_dir: /var/www
     volumes:
-      - ${LOCAL_WORKING_DIR}:${REMOTE_WORKING_DIR}
+      - .:/var/www
       - "./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini"
       - "./.docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini"
     restart: unless-stopped
     tty: true
-    env_file: .env
     depends_on:
       - db
     environment:
       - SERVICE_NAME=fpm
-      - SERVICE_TAGS=${APP_ENV}
+      - SERVICE_TAGS=local
     networks:
       - laravel
 
@@ -59,11 +57,10 @@ services:
     container_name: myexchangebot-nginx
     image: nginx:1.18-alpine
     volumes:
-      - ${LOCAL_WORKING_DIR}:${REMOTE_WORKING_DIR}
+      - .:/var/www
       - "./.docker/nginx/conf.d/:/etc/nginx/conf.d/"
     restart: unless-stopped
     tty: true
-    env_file: .env
     ports:
       - 80:80
       - 443:443
@@ -71,6 +68,6 @@ services:
       - fpm
     environment:
       - SERVICE_NAME=webserver
-      - SERVICE_TAGS=${APP_ENV}
+      - SERVICE_TAGS=local
     networks:
       - laravel
