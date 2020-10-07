@@ -1,8 +1,7 @@
 # PHP Challenge - My ExchangeBot - Thales Bitencourt 
 
-This project is a chatbot application. It is able to receive specific orders from the user, 
-and reply accordingly, including a user log-in and currency exchange between two currencies of any amount of money.
-
+This project is a chatbot application. It is able to receive specific commands from the user, 
+and reply appropriately, including a user log-in and currency exchange between two currencies of any amount of money.
 
 ## Conteúdo
 
@@ -74,13 +73,54 @@ Step-by-step to configure the project:
 
 `echo "127.0.0.1 myexchangebot.local" | sudo tee -a /etc/hosts`
 
-12 . Now just open the site: http://myexchangebot.local
+12 . Place your personal API keys in the `.env` file as an example above*:
+
+*Both are required.
+
+```
+## Currency External APIs
+DATAFIXER_URL=http://data.fixer.io/api/latest
+DATAFIXER_KEY=<YOUR_API_KEY>
+AMDOREN_URL=https://www.amdoren.com/api/currency.php
+AMDOREN_KEY=<YOUR_API_KEY>
+```
+
+
+Now just open the site: 
+
+- http://myexchangebot.local
 
 ## Features
 
+In this challenge, several best practices have been implemented, including some design patterns that are not used on Laravel (Ex: Builders, Transfers, Repositories, etc) and clean code. Unfortunately, it was not possible implement all required features however, a complex infrastructure has been created in the backend to guarantee a high level in all implemented features. Are they:
+
+* __Application dockerized__
+
+As mentioned, a complete environment has been set up on the docker for a better development experience.
+
+* __All interactions with bot via chat__
+
+To make easier, a "help" command has been created to list how to use all commands.
+
+* __Currency exchange using given APIs with currency code validation in the cache__
+
+Yes, this application uses both the provided APIs, one to validate currency codes (caching to perform the next searches) and other one to convert. It is very important to configure both APIs keys in `.env` file.
+
+* __Log-in and Sign-in by the bot via chat__
+
+Login working in two steps, one to start the action and get username, and the other to get password securely and log-in the user into the app, changing the username in the chat. I didn't have enough time to finish the sign-in.
+
+* __Logged user perform money transactions and all transaction's related features__
+
+Had no enough time to develop this feature.
+
+* __Pre-registered user__
+
+There are Seeders to store an Admin user and all chatbot hints.
+
 ## Conclusion
 
-Again, thanks for opportunity and any doubt just ask me! :)
+Again, thanks for opportunity and any doubts just ask me! :)
 
 Contacts:
 
