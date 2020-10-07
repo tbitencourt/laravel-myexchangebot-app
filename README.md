@@ -120,7 +120,7 @@ There are Seeders to store an Admin user and all chatbot hints.
 
 ## Conclusion
 
-Again, thanks for opportunity and any doubts just ask me! :)
+Thanks for the opportunity and any questions just ask me. :)
 
 Contacts:
 
